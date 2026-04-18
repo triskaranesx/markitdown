@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "markitdown"
+version = "0.1.0"
+description = "A utility for converting various file formats to Markdown"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+authors = [
+    { name = "Microsoft", email = "oss@microsoft.com" },
+]
+keywords = ["markdown", "conversion", "document", "pdf", "office"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+ Processing :: Markup ::beautifulsoup4>=.0",
+    "requestsdownify>=0.11.0",
+    "python-magic>=0.4.27",
+    "chardet>=5.0.0",
+]
+
+[project.optional-dependencies]
+pdf = ["pdfminer.six>=20221105"]
+docx = ["python-docx>=0.8.11"]
+xlsx = ["openpyxl>=3.0.10"]
+pptx = ["python-pptx>=0.6.21"]
+audio = ["openai-whisper>=20230314"]
+all = [
+    "pdfminer.six>=20221105",
+    "python-docx>=0.8.11",
+    "openpyxl>=3.0.10",
+    "python-pptx>=0.6.21",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "pre-commit>=3.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+markitdown = "markitdown.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/microsoft/markitdown"
+Repository = "https://github.com/microsoft/markitdown"
+Issues = "https://github.com/microsoft/markitdown/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/markitdown"]
+
+[tool.black]
+line-length = 100
+target-version = ["py39"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "W", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=markitdown --cov-report=term-missing"
