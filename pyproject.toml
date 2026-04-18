@@ -22,10 +22,10 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
- Processing :: Markup ::beautifulsoup4>=.0",
-    "requestsdownify>=0.11.0",
-    "python-magic>=0.4.27",
-    "chardet>=5.0.0",
+]
+dencies = [
+    "beaut.11downify>=0.11.0",
+    "-magic>=0.4.27
 ]
 
 [project.optional-dependencies]
