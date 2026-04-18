@@ -23,20 +23,12 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
-dencies = [
-    "beaut.11downify>=0.11.0",
-    "-magic>=0.4.27
-]
-
+dependencies = [
+    "beautifulsoup4>=4.11
 [project.optional-dependencies]
 pdf = ["pdfminer.six>=20221105"]
 docx = ["python-docx>=0.8.11"]
-xlsx = ["openpyxl>=3.0.10"]
-pptx = ["python-pptx>=0.6.21"]
-audio = ["openai-whisper>=20230314"]
-all = [
-    "pdfminer.six>=20221105",
-    "python-docx>=0.8.11",
+xlsx = ["openpyxl>=3"python-docx>=0.8.11",
     "openpyxl>=3.0.10",
     "python-pptx>=0.6.21",
 ]
