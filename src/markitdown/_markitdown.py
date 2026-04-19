@@ -96,42 +96,14 @@ class MarkItDown:
         if mime_type in ("text/plain", "text/markdown"):
             return DocumentConverterResult(text_content=content)
 
+        # Also treat HTML as plain text fallback for quick personal use
+        if mime_type == "text/html":
+            # Strip tags naively for a quick plain-text approximation
+            stripped = re.sub(r"<[^>]+>", "", content)
+            return DocumentConverterResult(text_content=stripped)
+
         raise ValueError(f"Unsupported MIME type for string conversion: {mime_type}")
 
     def _convert_local(self, path: Path, **kwargs) -> DocumentConverterResult:
         """Convert a local file to Markdown."""
-        mime_type, _ = mimetypes.guess_type(str(path))
-        extension = path.suffix.lower()
-
-        # Plain text / markdown — read directly
-        if extension in (".md", ".markdown", ".txt") or mime_type == "text/plain":
-            text = path.read_text(encoding="utf-8", errors="replace")
-            return DocumentConverterResult(title=path.stem, text_content=text)
-
-        raise ValueError(
-            f"Unsupported file type: {extension!r} (mime: {mime_type}). "
-            "Install optional dependencies for additional format support."
-        )
-
-    def _convert_url(self, url: str, **kwargs) -> DocumentConverterResult:
-        """Convert a URL resource to Markdown."""
-        try:
-            import requests
-        except ImportError as exc:
-            raise ImportError(
-                "The 'requests' package is required for URL conversion. "
-                "Install it with: pip install requests"
-            ) from exc
-
-        response = requests.get(url, timeout=30)
-        response.raise_for_status()
-
-        content_type = response.headers.get("Content-Type", "text/plain").split(";")[0].strip()
-
-        if content_type in ("text/plain", "text/markdown"):
-            return DocumentConverterResult(text_content=response.text)
-
-        raise ValueError(
-            f"Unsupported content type from URL: {content_type!r}. "
-            "Additional format support requires optional dependencies."
-        )
+        mime_type, _ = mimetypes.guess
